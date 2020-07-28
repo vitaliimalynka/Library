@@ -1,0 +1,53 @@
+<form   novalidate 
+        class="mb-3 mt-3" 
+        [formGroup]="genreForm"
+        (ngSubmit)="changeGenreDetails()">
+    <div class="form-group"> 
+        <label for="genre">Название жанра</label>
+        <input  type="text" 
+                name="genre" 
+                id="genre" 
+                placeholder="жанр" 
+                class="form-control" 
+                formControlName="genre" 
+                required>
+        <div *ngIf="formErrors.genre" class="alert alert-danger">
+            {{formErrors.genre}}
+        </div>
+    </div>
+    <button type="submit"
+            class="btn btn-primary" 
+            [disabled]="!genreForm.valid">Подтвердить изменения</button>
+</form>
+<div class="bg-success p-3 text-white text-center text-uppercase h5" *ngIf="successMessage">
+    Данные успешно сохранены
+</div>
+<div class="bg-danger p-3 text-white text-center text-uppercase h5" *ngIf="errorMessage">
+    Данные не сохранены
+</div>
+<hr>
+<div>
+    <p class="h4">Книги:</p>
+    <table class="table table-striped mt-4 mb-4">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th (click)="sortBooks('genreTable',0)">Название</th>
+                <th (click)="sortBooks('genreTable',1)">Жанр</th>
+                <th (click)="sortBooks('genreTable',2)">Страниц</th>
+                <th class="text-center additionalOption">Дополнительные действия</th>
+            </tr>
+        </thead>
+        <tbody id="genreTable">
+            <tr #row [attr.data-id]="data.id" *ngFor = "let data of books">
+                <td>{{data.bookName}}</td>
+                <td>{{data.genre}}</td>
+                <td>{{data.pages}}</td>
+                <td class="text-center">
+                    <a class="mr-3" href="#" (click)="deleteBook(row, $event)">Удалить</a> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<button class="btn btn-primary" (click)="goToGenresList()">К списку жанров</button>

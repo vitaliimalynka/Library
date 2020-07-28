@@ -1,0 +1,153 @@
+<form   novalidate 
+        class="mb-3 mt-3" 
+        [formGroup]="authForm"
+        (ngSubmit)="changeAuthorDetails()" >
+            
+    <div class="form-group"> 
+        <label for="firstName">Имя</label>
+        <input  type="text" 
+                name="firstName" 
+                id="firstName" 
+                value={{author.firstName}}
+                placeholder="Имя" 
+                class="form-control" 
+                formControlName="firstName" 
+                required>
+        <div *ngIf="formErrors.firstName" class="alert alert-danger">
+            {{formErrors.firstName}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Фамилия</label>
+        <input  type="text"
+                name="lastName" 
+                id="lastName" 
+                value={{author.lastName}}
+                placeholder="Фамилия"
+                class="form-control"
+                formControlName="lastName" 
+                required>
+        <div *ngIf="formErrors.lastName" class="alert alert-danger">
+            {{formErrors.lastName}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="middleName">Отчество</label>
+        <input  type="text"
+                name="middleName"   
+                id="middleName" 
+                value={{author.middleName}}
+                placeholder="Отчество"
+                class="form-control"        
+                formControlName="middleName">
+        <div *ngIf="formErrors.middleName" class="alert alert-danger">
+            {{formErrors.middleName}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="birthday">Дата рождения</label>
+        <input  type="text"
+                name="birthday" 
+                id="birthday" 
+                value={{author.bday}}
+                placeholder="1900-12-25"
+                class="form-control"         
+                formControlName="bday" 
+                required>
+        <div *ngIf="formErrors.bday" class="alert alert-danger">
+            {{formErrors.bday}}
+        </div>
+    </div>
+    
+    <button type="submit"
+            class="btn btn-outline-success" 
+            [disabled]="!authForm.valid">Подтвердить изменения</button>
+</form>
+<div class="bg-success p-3 text-white text-center text-uppercase h5" *ngIf="successMessage">
+    Данные успешно сохранены
+</div>
+<div class="bg-danger p-3 text-white text-center text-uppercase h5" *ngIf="errorMessage">
+    Данные не сохранены
+</div>
+<hr>
+<div>
+    <p class="h4">Книги:</p>
+    <table class="table table-striped mt-4 mb-4">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th (click)="sortAuthor('author',0)">Название</th>
+                <th (click)="sortAuthor('author',1)">Жанр</th>
+                <th (click)="sortAuthor('author',2)">Страниц</th>
+                <th class="text-center additionalOption">Дополнительные действия</th>
+            </tr>
+        </thead>
+        <tbody id="author">
+            <tr #row [attr.data-id]="data.id" *ngFor = "let data of books">
+                <td>{{data.bookName}}</td>
+                <td>{{data.genre}}</td>
+                <td>{{data.pages}}</td>
+                <td class="text-center">
+                    <a class="mr-3" href="/author" (click)="editBook(data, $event)">Редактировать</a> 
+                    <a class="mr-3" href="#" (click)="deleteBook(row, $event)">Удалить</a> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p class="text-right">
+    <a href="#" (click)="showForm($event)">Добавить книгу</a>
+</p>
+<div *ngIf="showAddNewBook" class="container">
+    <form   novalidate 
+            class="mb-3 mt-3" 
+            [formGroup]="newBookForm"
+            (ngSubmit)="addNewBook()">
+        <div class="form-group"> 
+            <label for="bookName">Название</label>
+            <input  type="text" 
+                    name="bookName" 
+                    id="bookName" 
+                    placeholder="Название" 
+                    class="form-control" 
+                    formControlName="bookName" 
+                    required>
+            <div *ngIf="formErrorsBook.bookName" class="alert alert-danger">
+                {{formErrorsBook.bookName}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pages">Количество станиц</label>
+            <input  type="text"
+                    name="pages" 
+                    id="pages" 
+                    placeholder="Количество страниц"
+                    class="form-control"
+                    formControlName="pages" 
+                    required>
+            <div *ngIf="formErrorsBook.pages" class="alert alert-danger">
+                {{formErrorsBook.pages}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="genre">Жанр</label>
+            <select id="genre" 
+                    name="genre"
+                    class="form-control"
+                    placeholder="Выберите жанр"        
+                    formControlName="genre"
+                    required>    
+                <option selected>Выберите жанр</option>
+                <option *ngFor="let item of genreList">{{item.genre}}</option>
+            </select>
+            <div *ngIf="formErrorsBook.genre" class="alert alert-danger">
+                {{formErrorsBook.genre}}
+            </div>
+        </div>
+        
+        <button type="submit"
+                class="btn btn-outline-primary" 
+                [disabled]="!newBookForm.valid">Добавить книгу</button>
+    </form>
+</div>
+<br>
+<button class="btn btn-primary" (click)="goToAuthorsList()">К списку авторов</button>

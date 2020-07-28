@@ -1,0 +1,21 @@
+<div>
+    <p class="h4"> Найденные книги:</p>
+    <table class="table table-striped mt-4 mb-4">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th (click)="sortBooks('foundBooks',0)">Название</th>
+                <th (click)="sortBooks('foundBooks',1)">Автор</th>
+                <th (click)="sortBooks('foundBooks',2)">Жанр</th>
+                <th (click)="sortBooks('foundBooks',3)">Страниц</th>
+            </tr>
+        </thead>
+        <tbody id="foundBooks">
+            <tr *ngFor = "let data of listOfBooks">
+                <td>{{data.bookName}}</td>
+                <td>{{data.authorName}}</td>
+                <td>{{data.genre}}</td>
+                <td>{{data.pages}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

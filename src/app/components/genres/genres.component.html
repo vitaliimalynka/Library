@@ -1,0 +1,45 @@
+<a href="#" (click)="showForm($event)">Добавить новый жанр</a>
+<div *ngIf="showAddNewGenre" class="container">
+    <form   novalidate 
+            class="mb-3 mt-3" 
+            [formGroup]="newGenreForm"
+            (ngSubmit)="addNewGenre()">
+        <div class="form-group"> 
+            <label for="genre">Название жанра</label>
+            <input  type="text" 
+                    name="genre" 
+                    id="genre" 
+                    placeholder="жанр" 
+                    class="form-control" 
+                    formControlName="genre" 
+                    required>
+            <div *ngIf="formErrors.genre" class="alert alert-danger">
+                {{formErrors.genre}}
+            </div>
+        </div>
+        <button type="submit"
+                class="btn btn-primary" 
+                [disabled]="!newGenreForm.valid">Добавить жанр</button>
+    </form>
+</div>
+<div>
+    <table class="table table-striped mt-4 mb-4">
+        <thead class="bg-primary text-white">
+            <tr>
+                <th (click)="sortGenres('genres',0)">Жанры</th>
+                <th (click)="sortGenres('genres',1)">Книг в базе</th>
+                <th class="text-center additionalOption">Дополнительные действия</th>
+            </tr>
+        </thead>
+        <tbody id="genres">
+            <tr #row [attr.data-id]="data.id" *ngFor = "let data of genreList">
+                <td>{{data.genre}}</td>
+                <td>{{data.books}}</td>
+                <td class="text-center">
+                    <a class="mr-3" href="#" (click)="editGenre(data, $event)">Редактировать</a> 
+                    <a class="mr-3" href="#" (click)="deleteGenre(row, $event)">Удалить</a> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,83 @@
+<a href="#" (click)="showForm($event)">Добавить автора</a>
+<div *ngIf="showAddNewAuthor" class="container">
+    <form   novalidate 
+            class="mb-3 mt-3" 
+            [formGroup]="newAuthForm"
+            (ngSubmit)="addNewAuthor()">
+        <div class="form-group"> 
+            <label for="firstName">Имя</label>
+            <input  type="text" 
+                    name="firstName" 
+                    id="firstName" 
+                    placeholder="Имя" 
+                    class="form-control" 
+                    formControlName="firstName" 
+                    required>
+            <div *ngIf="formErrors.firstName" class="alert alert-danger">
+                {{formErrors.firstName}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Фамилия</label>
+            <input  type="text"
+                    name="lastName" 
+                    id="lastName" 
+                    placeholder="Фамилия"
+                    class="form-control"
+                    formControlName="lastName" 
+                    required>
+            <div *ngIf="formErrors.lastName" class="alert alert-danger">
+                {{formErrors.lastName}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="middleName">Отчество</label>
+            <input  type="text"
+                    name="middleName"   
+                    id="middleName" 
+                    placeholder="Отчество"
+                    class="form-control"        
+                    formControlName="middleName">
+            <div *ngIf="formErrors.middleName" class="alert alert-danger">
+                {{formErrors.middleName}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="birthday">Дата рождения</label>
+            <input  type="text"
+                    name="birthday" 
+                    id="birthday" 
+                    placeholder="1900-12-25"
+                    class="form-control"         
+                    formControlName="bday" 
+                    required>
+            <div *ngIf="formErrors.bday" class="alert alert-danger">
+                {{formErrors.bday}}
+            </div>
+        </div>
+        
+        <button type="submit"
+                class="btn btn-primary" 
+                [disabled]="!newAuthForm.valid">Добавить автора</button>
+    </form>
+</div>
+<table class="table table-striped mt-2">
+    <thead class="bg-primary text-white">
+        <tr>
+            <th (click)="sortAuthors('authors',0)">Авторы</th>
+            <th (click)="sortAuthors('authors',1)" class="text-center">Книг в базе</th>
+            <th class="text-center additionalOption">Дополнительные действия</th>
+        </tr>
+    </thead>
+    <tbody id="authors">
+        <tr #row [attr.data-id]="data.id" *ngFor = "let data of dataForSite">
+            <td>{{data.lastName}} {{data.firstName}} {{data.middleName}}</td>
+            <td class="text-center">{{data.books}}</td>
+            <td class="text-center">
+                <a class="mr-3" href="/author" (click)="editAuthor(data, $event)">Редактировать</a> 
+                <a class="mr-3" href="#" (click)="deleteAuth(row, $event)">Удалить</a> 
+                <a href="#" (click)="editAuthor(data, $event)">Детали</a>
+            </td>
+    </tr>
+    </tbody>
+</table>

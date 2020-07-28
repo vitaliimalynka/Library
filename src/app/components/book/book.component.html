@@ -1,0 +1,59 @@
+<form   novalidate 
+        class="mb-3 mt-3" 
+        [formGroup]="bookForm"
+        (ngSubmit)="changeBookDetails()">
+    <div class="form-group"> 
+        <label for="bookName">Название</label>
+        <input  type="text" 
+                name="bookName" 
+                id="bookName" 
+                placeholder="Название" 
+                class="form-control" 
+                formControlName="bookName" 
+                required>
+        <div *ngIf="formErrorsBook.bookName" class="alert alert-danger">
+            {{formErrorsBook.bookName}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="pages">Количество станиц</label>
+        <input  type="text"
+                name="pages" 
+                id="pages" 
+                placeholder="Количество страниц"
+                class="form-control"
+                formControlName="pages" 
+                required>
+        <div *ngIf="formErrorsBook.pages" class="alert alert-danger">
+            {{formErrorsBook.pages}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="genre">Жанр</label>
+        <select id="genre" 
+                name="genre"
+                class="form-control"
+                placeholder="Выберите жанр"        
+                formControlName="genre"
+                required>
+            <option>{{currentGenre}}</option>    
+            <option *ngFor="let item of genreList">
+                {{item.genre}}
+            </option>
+        </select>
+        <div *ngIf="formErrorsBook.genre" class="alert alert-danger">
+            {{formErrorsBook.genre}}
+        </div>
+    </div>
+    
+    <button type="submit"
+            class="btn btn-outline-primary" 
+            [disabled]="!bookForm.valid">Подтвердить изменения</button>
+</form>
+<div class="bg-success p-3 text-white text-center text-uppercase h5" *ngIf="successMessage">
+    Данные успешно сохранены
+</div>
+<div class="bg-danger p-3 text-white text-center text-uppercase h5" *ngIf="errorMessage">
+    Данные не сохранены
+</div>
+<button class="btn btn-primary" (click)="goToAuthor()">Назад</button>

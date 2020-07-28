@@ -1,4 +1,5 @@
 #Notice from author
+
 This project is a task for intership.
 It basis on Angular(NG9).
 Language: russian.
@@ -16,7 +17,7 @@ For test this project you need:
 
 
 
-# Library
+## Library
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.5.
 

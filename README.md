@@ -1,3 +1,21 @@
+#Notice from author
+This project is a task for intership.
+It basis on Angular(NG9).
+Language: russian.
+
+Actually, in this project you can add author, books, genres. 
+Also you can edit and delete this items. All information save in localstorege. Thats why, it may needs access for work with localstorege.
+Also there is component for search books by name.
+
+For test this project you need:
+0. installed Node.js and Angular-CLI;
+1. download this repository;
+2. install node modules ("npm i");
+3. start project (for example, "ng serve -o");
+4. start test project in browser (http://localhost:4200/)
+
+
+
 # Library
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.5.
